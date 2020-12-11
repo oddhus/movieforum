@@ -169,7 +169,7 @@ export class PostResolver {
         .returning("*")
         .execute();
 
-      return result.raw[0];
+      return { post: result.raw[0] };
     } catch (error) {
       return generateStandardError(error);
     }

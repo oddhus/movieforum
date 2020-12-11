@@ -4,6 +4,8 @@ import {
   ManyToOne,
   Column,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { Post } from "./Post";
 import { Field, ObjectType } from "type-graphql";
@@ -19,6 +21,18 @@ export class Comment extends BaseEntity {
   @Column()
   text!: string;
 
-  @ManyToOne(() => Post, (post) => post.comments)
+  @Field()
+  @Column()
+  creatorName!: string;
+
+  @ManyToOne(() => Post, (post) => post.comments, { cascade: true })
   post: Post;
+
+  @Field(() => String)
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @Field(() => String)
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

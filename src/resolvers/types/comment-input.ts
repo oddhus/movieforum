@@ -1,10 +1,7 @@
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class CreateAndUpdatePostInput {
-  @Field()
-  title: string;
-
+export class CreateAndUpdateCommentInput {
   @Field()
   text: string;
 }
