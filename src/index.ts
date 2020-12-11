@@ -19,6 +19,7 @@ import { createUserLoader } from "./utils/createUserLoader";
 import { createUpdootLoader } from "./utils/createUpdootLoader";
 import { Comment } from "./entities/Comment";
 import { CommentResolver } from "./resolvers/comment";
+import { VoteResolver } from "./resolvers/vote";
 
 const main = async () => {
   const conn = await createConnection({
@@ -66,7 +67,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PostResolver, UserResolver, CommentResolver],
+      resolvers: [PostResolver, UserResolver, CommentResolver, VoteResolver],
       validate: false,
     }),
     context: ({ req, res }) => ({

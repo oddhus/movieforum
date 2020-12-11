@@ -204,6 +204,21 @@ export class UserResolver {
   }
 
   @Mutation(() => Boolean)
+  async delete(@Ctx() { req }: MyContext): Promise<Boolean> {
+    try {
+      await getConnection()
+        .createQueryBuilder()
+        .delete()
+        .from(User)
+        .where("id = :id", { id: req.session.userId })
+        .execute();
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  @Mutation(() => Boolean)
   logout(@Ctx() { req, res }: MyContext) {
     return new Promise((resolve) =>
       req.session.destroy((err) => {
